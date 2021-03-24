@@ -1,0 +1,148 @@
+{
+  "version": 1,
+  "cli": {
+    "packageManager": "yarn",
+    "defaultCollection": "@nrwl/angular"
+  },
+  "defaultProject": "site",
+  "schematics": {
+    "@nrwl/angular": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      },
+      "storybook-configuration": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/angular:application": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "scss"
+    }
+  },
+  "projects": {
+    "site": {
+      "projectType": "application",
+      "root": "apps/site",
+      "sourceRoot": "apps/site/src",
+      "prefix": "gcirone",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/site",
+            "index": "apps/site/src/index.html",
+            "main": "apps/site/src/main.ts",
+            "polyfills": "apps/site/src/polyfills.ts",
+            "tsConfig": "apps/site/tsconfig.app.json",
+            "aot": true,
+            "assets": ["apps/site/src/favicon.ico", "apps/site/src/assets"],
+            "styles": ["apps/site/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/site/src/environments/environment.ts",
+                  "with": "apps/site/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "site:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "site:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "site:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/site/src/**/*.ts",
+              "apps/site/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/site"],
+          "options": {
+            "jestConfig": "apps/site/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "site-e2e": {
+      "root": "apps/site-e2e",
+      "sourceRoot": "apps/site-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/site-e2e/cypress.json",
+            "tsConfig": "apps/site-e2e/tsconfig.e2e.json",
+            "devServerTarget": "site:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "site:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/site-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    }
+  }
+}
