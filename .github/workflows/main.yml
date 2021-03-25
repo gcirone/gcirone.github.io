@@ -31,15 +31,20 @@ jobs:
         id: modules-cache # use this to check for `cache-hit` (`steps.modules-cache.outputs.cache-hit != 'true'`)
         with:
           path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-modules2-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-modules-
+            ${{ runner.os }}-modules2-
 
       - uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
 
+      - run: echo "cache $GITHUB_WORKSPACE/node_modules/.cache"
+
       - run: yarn install --frozen-lockfile
+        env:
+          CYPRESS_CACHE_FOLDER: '$GITHUB_WORKSPACE/node_modules/.cache'
+
       - run: yarn prerender
       - run: yarn test
       - run: yarn e2e
