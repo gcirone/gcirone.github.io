@@ -12,6 +12,9 @@ jobs:
     strategy:
       matrix:
         node-version: [ 12.x ]
+        node-scripts: [ prerender, test ]
+    env:
+      CYPRESS_CACHE_FOLDER: ${{ github.workspace }}/node_modules/.cache
 
     steps:
       - uses: actions/checkout@v2
@@ -39,12 +42,19 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - run: echo "cache $GITHUB_WORKSPACE/node_modules/.cache"
+      - run: |
+          echo "cache $GITHUB_WORKSPACE/node_modules/.cache"
+          echo $CYPRESS_CACHE_FOLDER
 
       - run: yarn install --frozen-lockfile
-        env:
-          CYPRESS_CACHE_FOLDER: ${{ github.workspace }}/node_modules/.cache
 
-      - run: yarn prerender
-      - run: yarn test
+      - run: echo "Run script ${{ matrix.node-scripts }}"
+
+      #- run: yarn prerender
+      #- run: yarn test
+      - run: |
+          yarn cypress cache path
+          yarn cypress cache list
+          npx cypress install
+
       - run: yarn e2e
