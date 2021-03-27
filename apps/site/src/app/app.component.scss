@@ -1,6 +1,8 @@
-.center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.info-box {
+  @apply flex justify-center items-center h-screen p-2;
+}
+
+.info-site {
+  @apply bg-white p-4 rounded-lg shadow-sm text-xs;
 }
 
