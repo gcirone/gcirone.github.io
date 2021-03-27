@@ -6,22 +6,16 @@ on:
     branches: [ master ]
   workflow_dispatch:
 
+env:
+  CYPRESS_CACHE_FOLDER: ${{ github.workspace }}/node_modules/.cache
+  NODE_ENV: production
+
 jobs:
+
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [ 12.x ]
-        node-scripts: [ prerender, test ]
-    env:
-      CYPRESS_CACHE_FOLDER: ${{ github.workspace }}/node_modules/.cache
-
     steps:
       - uses: actions/checkout@v2
-
-      - run: |
-          echo "yarn cache $(yarn cache dir)"
-          echo $CYPRESS_CACHE_FOLDER
 
       - id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn cache dir)"
@@ -31,33 +25,51 @@ jobs:
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+          restore-keys: ${{ runner.os }}-yarn-
 
       - uses: actions/cache@v2
         id: modules-cache # use this to check for `cache-hit` (`steps.modules-cache.outputs.cache-hit != 'true'`)
         with:
           path: '**/node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-modules-
+          restore-keys: ${{ runner.os }}-modules-
 
       - uses: actions/setup-node@v2
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 12.x
 
-      - run: |
-          echo "cache $GITHUB_WORKSPACE/node_modules/.cache"
-          echo $CYPRESS_CACHE_FOLDER
+      - if: steps.yarn-cache.outputs.cache-hit != 'true'
+        run: |
+          yarn install --frozen-lockfile
+          yarn cypress install && yarn cypress verify
 
-      - run: yarn install --frozen-lockfile
+      - run: yarn prerender
 
-      #- run: echo "Run script ${{ matrix.node-scripts }}"
-      #- run: yarn prerender
-      #- run: yarn test
-      - run: |
-          yarn cypress cache path
-          yarn cypress cache list
-          npx cypress install --force
 
-      - run: yarn e2e
+  tests:
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-scripts: [ test, e2e ]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/cache@v2
+        id: modules-cache # use this to check for `cache-hit` (`steps.modules-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: ${{ runner.os }}-modules-
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 12.x
+
+      - run: yarn ${{ matrix.node-scripts }}
+
+
+
+
+
