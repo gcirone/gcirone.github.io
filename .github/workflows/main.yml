@@ -89,7 +89,7 @@ jobs:
           name: gcirone-site
           path: dist/site/browser
 
-      - uses: JamesIves/github-pages-deploy-action@4
+      - uses: JamesIves/github-pages-deploy-action@4.1.0
         with:
           branch: gh-pages
           folder: dist/site/browser
