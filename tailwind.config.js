@@ -1,6 +1,6 @@
 module.exports = {
   purge: {
-    enabled: process.env.WEBPACK_DEV_SERVER === 'true' && process.argv.join(' ').indexOf('build') !== -1,
+    enabled: process.env.WEBPACK_DEV_SERVER === 'true',
     content: [
       "./apps/**/*.{html,ts,scss}",
       "./libs/**/*.{html,ts,scss}"

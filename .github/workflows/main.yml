@@ -1,4 +1,4 @@
-name: gcrione-site
+name: gcirone-site
 on:
   push:
     branches: [ master ]
