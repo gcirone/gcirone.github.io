@@ -8,7 +8,6 @@ on:
 
 env:
   CYPRESS_CACHE_FOLDER: ${{ github.workspace }}/node_modules/.cache
-  NODE_ENV: production
 
 jobs:
 
@@ -44,7 +43,8 @@ jobs:
           yarn cypress install && yarn cypress verify
 
       - run: yarn prerender
-
+        env:
+          NODE_ENV: production
 
   tests:
     needs: build
@@ -52,6 +52,8 @@ jobs:
     strategy:
       matrix:
         node-scripts: [ test, e2e ]
+    env:
+      NODE_ENV: production
 
     steps:
       - uses: actions/checkout@v2
@@ -68,7 +70,6 @@ jobs:
           node-version: 12.x
 
       - run: yarn ${{ matrix.node-scripts }}
-
 
 
 
