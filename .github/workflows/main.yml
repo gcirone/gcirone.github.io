@@ -42,9 +42,16 @@ jobs:
           yarn install --frozen-lockfile
           yarn cypress install && yarn cypress verify
 
-      - run: yarn prerender
+      - run: |
+          yarn lint
+          yarn prerender
         env:
           NODE_ENV: production
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: gcirone-site
+          path: dist/site/browser    
 
   tests:
     needs: build
