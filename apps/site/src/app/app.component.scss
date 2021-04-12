@@ -1,8 +1,14 @@
-.info-box {
-  @apply flex justify-center items-center h-screen p-2;
-}
+.info {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 96%;
+  justify-content: center;
 
-.info-site {
-  @apply bg-white p-4 rounded-lg shadow-sm text-xs;
+  h1 {
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin-bottom: .3rem;
+  }
 }
 

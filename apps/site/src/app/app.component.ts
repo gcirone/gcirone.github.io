@@ -12,6 +12,4 @@ import {
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {
-  @HostBinding('attr.ng-version') version = null;
-}
+export class AppComponent {}
