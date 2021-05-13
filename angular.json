@@ -46,10 +46,20 @@
             "main": "apps/site/src/main.ts",
             "polyfills": "apps/site/src/polyfills.ts",
             "tsConfig": "apps/site/tsconfig.app.json",
-            "aot": true,
-            "assets": ["apps/site/src/favicon.ico", "apps/site/src/assets"],
-            "styles": ["apps/site/src/styles.scss"],
-            "scripts": []
+            "assets": [
+              "apps/site/src/favicon.ico",
+              "apps/site/src/assets"
+            ],
+            "styles": [
+              "apps/site/src/styles.scss"
+            ],
+            "scripts": [],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -118,7 +128,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/site"],
+          "outputs": [
+            "coverage/apps/site"
+          ],
           "options": {
             "jestConfig": "apps/site/jest.config.js",
             "passWithNoTests": true
@@ -129,7 +141,9 @@
           "options": {
             "outputPath": "dist/site/server",
             "main": "apps/site/server.ts",
-            "tsConfig": "apps/site/tsconfig.server.json"
+            "tsConfig": "apps/site/tsconfig.server.json",
+            "sourceMap": true,
+            "optimization": false
           },
           "configurations": {
             "production": {
@@ -194,7 +208,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/site-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps/site-e2e/**/*.{js,ts}"
+            ]
           }
         }
       }
