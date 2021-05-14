@@ -46,13 +46,8 @@
             "main": "apps/site/src/main.ts",
             "polyfills": "apps/site/src/polyfills.ts",
             "tsConfig": "apps/site/tsconfig.app.json",
-            "assets": [
-              "apps/site/src/favicon.ico",
-              "apps/site/src/assets"
-            ],
-            "styles": [
-              "apps/site/src/styles.scss"
-            ],
+            "assets": ["apps/site/src/favicon.ico", "apps/site/src/assets"],
+            "styles": ["apps/site/src/styles.scss"],
             "scripts": [],
             "vendorChunk": true,
             "extractLicenses": false,
@@ -88,13 +83,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
                 }
               ]
             }
@@ -128,9 +123,7 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/site"
-          ],
+          "outputs": ["coverage/apps/site"],
           "options": {
             "jestConfig": "apps/site/jest.config.js",
             "passWithNoTests": true
@@ -177,9 +170,7 @@
           "options": {
             "browserTarget": "site:build:production",
             "serverTarget": "site:server:production",
-            "routes": [
-              "/"
-            ]
+            "routes": ["/"]
           },
           "configurations": {
             "production": {}
@@ -208,9 +199,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/site-e2e/**/*.{js,ts}"
-            ]
+            "lintFilePatterns": ["apps/site-e2e/**/*.{js,ts}"]
           }
         }
       }
