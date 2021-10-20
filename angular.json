@@ -1,37 +1,5 @@
 {
   "version": 1,
-  "cli": {
-    "packageManager": "yarn",
-    "defaultCollection": "@nrwl/angular"
-  },
-  "defaultProject": "site",
-  "schematics": {
-    "@nrwl/angular": {
-      "application": {
-        "linter": "eslint"
-      },
-      "library": {
-        "linter": "eslint"
-      },
-      "storybook-configuration": {
-        "linter": "eslint"
-      }
-    },
-    "@nrwl/angular:application": {
-      "style": "scss",
-      "linter": "eslint",
-      "unitTestRunner": "jest",
-      "e2eTestRunner": "cypress"
-    },
-    "@nrwl/angular:library": {
-      "style": "scss",
-      "linter": "eslint",
-      "unitTestRunner": "jest"
-    },
-    "@nrwl/angular:component": {
-      "style": "scss"
-    }
-  },
   "projects": {
     "site": {
       "projectType": "application",
@@ -119,7 +87,8 @@
               "apps/site/src/**/*.ts",
               "apps/site/src/**/*.html"
             ]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -176,7 +145,8 @@
             "production": {}
           }
         }
-      }
+      },
+      "tags": []
     },
     "site-e2e": {
       "root": "apps/site-e2e",
@@ -200,9 +170,12 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["apps/site-e2e/**/*.{js,ts}"]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         }
-      }
+      },
+      "tags": [],
+      "implicitDependencies": ["site"]
     }
   }
 }
