@@ -1,9 +1,9 @@
 name: gcirone-site
 on:
   push:
-    branches: [ master ]
+    branches: [ nx-update ]
   pull_request:
-    branches: [ master ]
+    branches: [ nx-update ]
   workflow_dispatch:
 
 env:
