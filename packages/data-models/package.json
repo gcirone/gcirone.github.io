@@ -1,0 +1,11 @@
+{
+  "name": "@gcirone/data-models",
+  "version": "0.0.1",
+  "type": "commonjs",
+  "peerDependencies": {
+    "@prisma/client": "^4.7.1"
+  },
+  "prisma": {
+    "seed": "node ./src/prisma/db-seed.js"
+  }
+}
