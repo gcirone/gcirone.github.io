@@ -1,14 +1,14 @@
 import PageLayout from '../components/layout/page-layout';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-import './styles.css';
+import '../styles/styles.scss';
 
-import { Roboto } from '@next/font/google'
+import { Inter } from '@next/font/google';
 
-const roboto = Roboto({
-  weight: ['400'],
+const inter = Inter({
+  weight: ['400', '500', '600'],
   style: ['normal'],
-  subsets: ['latin']
+  subsets: ['latin'],
 });
 
 export default function MainApp({ Component, pageProps }: AppProps) {
@@ -17,7 +17,7 @@ export default function MainApp({ Component, pageProps }: AppProps) {
       <Head>
         <title>Gianluca Cirone Developer</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <style>{`:root { --font-main: ${roboto.style.fontFamily}; }`}</style>
+        <style>{`:root { --font-family: ${inter.style.fontFamily}; }`}</style>
       </Head>
       <PageLayout>
         <Component {...pageProps} />

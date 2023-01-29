@@ -8,6 +8,7 @@
     "site:test": "nx test nextsite-app",
     "site:e2e": "nx e2e nextsite-app-e2e",
     "site:export": "nx export nextsite-app",
+    "prisma:generate": "nx run data-models:generate-client",
     "ngsite:serve": "nx serve ngsite-app",
     "ngsite:build": "nx build ngsite-app",
     "ngsite:test": "nx test ngsite-app",

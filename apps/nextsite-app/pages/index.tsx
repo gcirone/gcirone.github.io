@@ -1,28 +1,34 @@
 import styles from './index.module.scss';
 import { findManyWorks } from '@gcirone/data-models';
+import type { GetStaticProps, NextPage } from 'next';
 
-export async function getStaticProps() {
+interface WorksProps {
+  works: any[];
+}
+
+export const getStaticProps: GetStaticProps = async (_context) => {
   const works = await findManyWorks();
 
   return {
-    props: { works }
-  }
-}
+    props: {
+      works,
+    },
+  };
+};
 
-
-export function Index({ works }) {
+const IndexPage: NextPage<WorksProps> = ({ works }) => {
   return (
     <div className={styles.page}>
-     Works
-
+      Works
       <div>
-        {works.map(work => (
-          <div key={work.id}>{work.name} @ {work.createdAt}</div>
+        {works.map((work) => (
+          <div key={work.id}>
+            {work.name} @ {work.createdAt}
+          </div>
         ))}
       </div>
-
     </div>
   );
-}
+};
 
-export default Index;
+export default IndexPage;
