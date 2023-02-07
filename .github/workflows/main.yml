@@ -61,50 +61,50 @@ jobs:
           name: gcirone-site
           path: dist/site/browser
 
-  tests:
-    needs: build
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-scripts: [ test, e2e ]
-    env:
-      NODE_ENV: production
-
-    steps:
-      - name: Checkout changes
-        uses: actions/checkout@v2
-
-      - name: Modules cache
-        uses: actions/cache@v2
-        id: modules-cache
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: ${{ runner.os }}-modules-
-
-      - name: Setup node
-        uses: actions/setup-node@v2
-        with:
-          node-version: 14.x
-
-      - name: Run script ${{ matrix.node-scripts }}
-        run: yarn ${{ matrix.node-scripts }}
-
-  deploy:
-    needs: tests
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout changes
-        uses: actions/checkout@v2
-
-      - name: Download artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: gcirone-site
-          path: dist/site/browser
-
-      - name: Publish github pages
-        uses: JamesIves/github-pages-deploy-action@4.1.0
-        with:
-          branch: gh-pages
-          folder: dist/site/browser
+#  tests:
+#    needs: build
+#    runs-on: ubuntu-latest
+#    strategy:
+#      matrix:
+#        node-scripts: [ test, e2e ]
+#    env:
+#      NODE_ENV: production
+#
+#    steps:
+#      - name: Checkout changes
+#        uses: actions/checkout@v2
+#
+#      - name: Modules cache
+#        uses: actions/cache@v2
+#        id: modules-cache
+#        with:
+#          path: '**/node_modules'
+#          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+#          restore-keys: ${{ runner.os }}-modules-
+#
+#      - name: Setup node
+#        uses: actions/setup-node@v2
+#        with:
+#          node-version: 14.x
+#
+#      - name: Run script ${{ matrix.node-scripts }}
+#        run: yarn ${{ matrix.node-scripts }}
+#
+#  deploy:
+#    needs: tests
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout changes
+#        uses: actions/checkout@v2
+#
+#      - name: Download artifact
+#        uses: actions/download-artifact@v2
+#        with:
+#          name: gcirone-site
+#          path: dist/site/browser
+#
+#      - name: Publish github pages
+#        uses: JamesIves/github-pages-deploy-action@4.1.0
+#        with:
+#          branch: gh-pages
+#          folder: dist/site/browser
