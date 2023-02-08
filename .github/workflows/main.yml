@@ -1,13 +1,14 @@
 name: gcirone-site
 on:
   push:
-    branches: [ master ]
+    branches: [ next-update ]
   pull_request:
-    branches: [ master ]
+    branches: [ next-update ]
   workflow_dispatch:
 
 env:
   CYPRESS_CACHE_FOLDER: ${{ github.workspace }}/node_modules/.cache
+  NODE_ENV: production
 
 jobs:
 
@@ -15,81 +16,66 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout changes
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - name: Set yarn cache directory
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-
-      - name: Yarn cache
-        uses: actions/cache@v2
-        id: yarn-cache
+      - name: Setup node
+        uses: actions/setup-node@v3
         with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: ${{ runner.os }}-yarn-
+          node-version: 16.x
+          cache: 'yarn'
+          cache-dependency-path: '**/yarn.lock'
 
       - name: Modules cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: modules-cache
         with:
           path: '**/node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
           restore-keys: ${{ runner.os }}-modules-
 
-      - name: Setup node
-        uses: actions/setup-node@v2
-        with:
-          node-version: 14.x
-
       - name: Install dependencies
-        if: steps.yarn-cache.outputs.cache-hit != 'true'
+        if: steps.modules-cache.outputs.cache-hit != 'true'
         run: |
           yarn install --frozen-lockfile
           yarn cypress install && yarn cypress verify
 
       - name: Build application
         run: |
-          yarn lint
-          yarn prerender
-        env:
-          NODE_ENV: production
+          yarn site:export
 
       - name: Save artifact
         uses: actions/upload-artifact@v2
         with:
           name: gcirone-site
-          path: dist/site/browser
+          path: dist/apps/gcirone-site/exported
 
-#  tests:
-#    needs: build
-#    runs-on: ubuntu-latest
-#    strategy:
-#      matrix:
-#        node-scripts: [ test, e2e ]
-#    env:
-#      NODE_ENV: production
-#
-#    steps:
-#      - name: Checkout changes
-#        uses: actions/checkout@v2
-#
-#      - name: Modules cache
-#        uses: actions/cache@v2
-#        id: modules-cache
-#        with:
-#          path: '**/node_modules'
-#          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-#          restore-keys: ${{ runner.os }}-modules-
-#
-#      - name: Setup node
-#        uses: actions/setup-node@v2
-#        with:
-#          node-version: 14.x
-#
-#      - name: Run script ${{ matrix.node-scripts }}
-#        run: yarn ${{ matrix.node-scripts }}
-#
+  tests:
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-scripts: [ test, e2e ]
+
+    steps:
+      - name: Checkout changes
+        uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+
+      - name: Modules cache
+        uses: actions/cache@v3
+        id: modules-cache
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: ${{ runner.os }}-modules-
+
+      - name: Run script ${{ matrix.node-scripts }}
+        run: yarn site:${{ matrix.node-scripts }}
+
 #  deploy:
 #    needs: tests
 #    runs-on: ubuntu-latest
