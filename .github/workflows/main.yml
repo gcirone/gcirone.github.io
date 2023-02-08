@@ -8,7 +8,7 @@ on:
 
 env:
   CYPRESS_CACHE_FOLDER: ${{ github.workspace }}/node_modules/.cache
-  NODE_ENV: production
+  NEXT_TELEMETRY_DISABLED: true
 
 jobs:
 
@@ -41,7 +41,10 @@ jobs:
 
       - name: Build application
         run: |
+          yarn site:lint
           yarn site:export
+        env:
+          NODE_ENV: production
 
       - name: Save artifact
         uses: actions/upload-artifact@v2
@@ -55,6 +58,8 @@ jobs:
     strategy:
       matrix:
         node-scripts: [ test, e2e ]
+    env:
+      NODE_ENV: production
 
     steps:
       - name: Checkout changes
