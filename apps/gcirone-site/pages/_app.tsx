@@ -1,34 +1,25 @@
+import MainLayout from '../components/layouts/main-layout';
+import { Inter } from '@next/font/google';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-import './styles.css';
+import '../styles/styles.scss';
 
-import { Inter } from '@next/font/google';
+const inter = Inter({ subsets: ['latin'] });
 
-const inter = Inter({
-  weight: ['400', '500', '600'],
-  style: ['normal'],
-  subsets: ['latin'],
-});
-
-function CustomApp({ Component, pageProps }: AppProps) {
+export default function CustomApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>Gianluca Cirone Developer</title>
+        <title>Gianluca Cirone Technology Master</title>
         <meta name="description" content="Gianluca Cirone Developer" />
-        <meta
-          name="keywords"
-          content="HTML, CSS, JavaScript, Portfolio, Engineering"
-        />
+        <meta name="keywords" content="HTML, CSS, JavaScript, Portfolio, Engineering, Technology" />
         <meta name="author" content="Gianluca Cirone" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <style>{`:root { --font-family: ${inter.style.fontFamily}; }`}</style>
+        <style>{`:root { --inter-font: ${inter.style.fontFamily}; }`}</style>
       </Head>
-      <main className="app">
+      <MainLayout>
         <Component {...pageProps} />
-      </main>
+      </MainLayout>
     </>
   );
 }
-
-export default CustomApp;

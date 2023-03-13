@@ -45,7 +45,7 @@ jobs:
           yarn site:export
 
       - name: Save artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: gcirone-site
           path: dist/apps/gcirone-site/exported
@@ -77,21 +77,21 @@ jobs:
       - name: Run script ${{ matrix.node-scripts }}
         run: yarn site:${{ matrix.node-scripts }}
 
-#  deploy:
-#    needs: tests
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Checkout changes
-#        uses: actions/checkout@v2
-#
-#      - name: Download artifact
-#        uses: actions/download-artifact@v2
-#        with:
-#          name: gcirone-site
-#          path: dist/site/browser
-#
-#      - name: Publish github pages
-#        uses: JamesIves/github-pages-deploy-action@4.1.0
-#        with:
-#          branch: gh-pages
-#          folder: dist/site/browser
+  deploy:
+    needs: tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout changes
+        uses: actions/checkout@v3
+
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: gcirone-site
+          path: dist/apps/gcirone-site/exported
+
+      - name: Publish github pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: dist/apps/gcirone-site/exported
