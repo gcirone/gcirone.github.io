@@ -1,0 +1,14 @@
+@import 'variables';
+@import 'reset';
+
+body {
+  background: radial-gradient(#e9f3fa, #d9ecf8);
+  color: #435773;
+  font-family: var(--inter-font, sans-serif);
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+#__next {
+  height: 100vh;
+}
