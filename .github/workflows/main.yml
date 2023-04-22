@@ -1,9 +1,9 @@
 name: gcirone-site
 on:
   push:
-    branches: [ next-update ]
+    branches: [ master ]
   pull_request:
-    branches: [ next-update ]
+    branches: [ master ]
   workflow_dispatch:
 
 env:
@@ -80,6 +80,8 @@ jobs:
   deploy:
     needs: tests
     runs-on: ubuntu-latest
+    environment:
+      name: production
     steps:
       - name: Checkout changes
         uses: actions/checkout@v3

@@ -45,15 +45,17 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
+      "defaultConfiguration": "production",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "apps/gcirone-site/jest.config.ts",
-        "passWithNoTests": true
+        "passWithNoTests": true,
+        "coverageReporters": ["lcovonly", "html", "text-summary"]
       },
       "configurations": {
-        "ci": {
-          "ci": true,
-          "codeCoverage": true
+        "production": {
+          "codeCoverage": true,
+          "ci": true
         }
       }
     },
