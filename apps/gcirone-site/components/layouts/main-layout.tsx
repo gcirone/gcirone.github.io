@@ -32,7 +32,7 @@ export default function MainLayout({ children }) {
         <meta name="msapplication-TileImage" content="/static/favicon/ms-icon-144x144.png" />
         <meta name="theme-color" content="#262927" />
         <link href="/static/favicon/favicon.ico" rel="shortcut icon" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <main className={styles.main}>{children}</main>
     </>
