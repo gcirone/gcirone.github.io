@@ -1,11 +1,14 @@
 @import 'variables';
 @import 'reset';
 
+html {
+  background-color: var(--gc-base-color);
+}
+
 body {
-  background: radial-gradient(#e9f3fa, #d9ecf8);
-  color: #435773;
-  font-family: var(--inter-font, sans-serif);
-  -webkit-user-select: none;
+  background-image: radial-gradient(farthest-corner at right, var(--gc-gray-color) 0%, var(--gc-gray-dark-color) 100%);
+  color: var(--gc-accent-color);
+  font-family: var(--gc-base-font, sans-serif);
   user-select: none;
 }
 
