@@ -3,8 +3,8 @@
   "short_name": "GCTech",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#262927",
-  "description": "Welcome to the Personal Webapp of Gianluca Cirone, Chief Technology Officer",
+  "background_color": "#121212",
+  "description": "Webapp of Gianluca Cirone, Technology Master",
   "icons": [
     {
       "src": "/static/favicon/android-icon-36x36.png",
