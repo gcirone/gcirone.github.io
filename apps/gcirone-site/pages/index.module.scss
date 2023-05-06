@@ -44,12 +44,11 @@
   a {
     bottom: 2rem;
     position: absolute;
-    font-weight: lighter;
     animation: fade-in 2s linear 1s;
     animation-fill-mode: both;
 
     span {
-      font-weight: normal;
+      font-weight: bold;
     }
   }
 }

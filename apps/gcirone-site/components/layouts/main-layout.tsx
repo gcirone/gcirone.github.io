@@ -9,7 +9,7 @@ export default function MainLayout({ children }) {
     <>
       <style jsx global>{`:root { --font-montserrat: ${montserrat.style.fontFamily}; }`}</style>
       <Head>
-        <title>Welcome to the Personal Website of Gianluca Cirone, Chief Technology Officer</title>
+        <title>Welcome to the Personal Website of Gianluca Cirone, Technology Master</title>
         <meta name="description" content="Leading Innovation and Driving Results with Strategic Technology Leadership" />
         <meta name="keywords" content="Technology, Strategy, Planning, Engineering, Development, Risk, HTML, CSS, JavaScript, Portfolio" />
         <meta name="author" content="Gianluca Cirone" />
@@ -28,9 +28,9 @@ export default function MainLayout({ children }) {
         <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon/favicon-16x16.png" />
         <link rel="manifest" href="/static/favicon/site.webmanifest" />
         <meta content="/static/favicon/browserconfig.xml" name="msapplication-config" />
-        <meta name="msapplication-TileColor" content="#262927" />
+        <meta name="msapplication-TileColor" content="#121212" />
         <meta name="msapplication-TileImage" content="/static/favicon/ms-icon-144x144.png" />
-        <meta name="theme-color" content="#262927" />
+        <meta name="theme-color" content="#121212" />
         <link href="/static/favicon/favicon.ico" rel="shortcut icon" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
