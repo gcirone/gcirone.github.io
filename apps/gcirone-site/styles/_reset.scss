@@ -12,6 +12,10 @@ body {
 
 h1,
 h2,
+h3,
+h4,
+h5,
+h6,
 p,
 pre {
   margin: 0;
@@ -27,7 +31,11 @@ pre {
 }
 
 h1,
-h2 {
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-size: inherit;
   font-weight: inherit;
 }

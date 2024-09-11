@@ -48,7 +48,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: gcirone-site
-          path: dist/apps/gcirone-site/exported
+          path: dist/apps/gcirone-site/.next
 
   tests:
     needs: build
@@ -90,10 +90,10 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: gcirone-site
-          path: dist/apps/gcirone-site/exported
+          path: dist/apps/gcirone-site/.next
 
       - name: Publish github pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
-          folder: dist/apps/gcirone-site/exported
+          folder: dist/apps/gcirone-site/.next

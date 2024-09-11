@@ -2,13 +2,13 @@
 @import 'reset';
 
 html {
-  background-color: var(--gc-shaft-1000);
+  background-color: var(--gc-shaft-900);
 }
 
 body {
-  background-image: radial-gradient(farthest-corner at right, var(--gc-shaft-900) 0%, var(--gc-shaft-1000) 100%);
-  color: var(--gc-brand-color-2);
-  font-family: var(--gc-brand-font-1, sans-serif);
+  background-image: radial-gradient(farthest-corner at right, var(--gc-shaft-700) 0%, var(--gc-shaft-900) 100%);
+  color: var(--gc-buckthorn-400);
+  font-family: var(--font-montserrat) sans-serif;
   user-select: none;
 }
 
