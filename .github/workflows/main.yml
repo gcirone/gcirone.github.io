@@ -42,7 +42,7 @@ jobs:
       - name: Build application
         run: |
           yarn site:lint
-          yarn site:export
+          yarn site:build
 
       - name: Save artifact
         uses: actions/upload-artifact@v3
