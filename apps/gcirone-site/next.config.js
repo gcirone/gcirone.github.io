@@ -8,13 +8,16 @@ const { withNx } = require('@nx/next/plugins/with-nx');
  **/
 const nextConfig = {
   output: 'export',
-  // distDir: 'exported',
+
+  distDir: 'exported',
   trailingSlash: true,
+
   nx: {
-    // Set this to true if you would like to to use SVGR
+    // Set this to true if you would like to use SVGR
     // See: https://github.com/gregberge/svgr
     svgr: false
   },
+
   images: {
     unoptimized: true
   }
