@@ -16,17 +16,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout changes
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: 20
           cache: 'yarn'
           cache-dependency-path: '**/yarn.lock'
 
       - name: Modules cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: modules-cache
         with:
           path: '**/node_modules'
@@ -43,12 +43,13 @@ jobs:
         run: |
           yarn site:lint
           yarn site:build
+          ls -al dist/apps/gcirone-site
 
       - name: Save artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: gcirone-site
-          path: dist/apps/gcirone-site/.next
+          path: "dist/apps/gcirone-site/.next"
 
   tests:
     needs: build
@@ -59,15 +60,15 @@ jobs:
 
     steps:
       - name: Checkout changes
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 16.x
+          node-version: 20
 
       - name: Modules cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: modules-cache
         with:
           path: '**/node_modules'
@@ -84,16 +85,16 @@ jobs:
       name: production
     steps:
       - name: Checkout changes
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Download artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: gcirone-site
-          path: dist/apps/gcirone-site/.next
+          path: "dist/apps/gcirone-site/.next"
 
       - name: Publish github pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
-          folder: dist/apps/gcirone-site/.next
+          folder: "dist/apps/gcirone-site/.next"
