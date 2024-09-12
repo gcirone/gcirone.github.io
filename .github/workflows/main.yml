@@ -42,14 +42,14 @@ jobs:
       - name: Build application
         run: |
           yarn site:lint
-          yarn site:build
-          ls -al dist/apps/gcirone-site
+          yarn site:build --skip-nx-cache
+          ls -al dist/apps/gcirone-site/.next/
 
       - name: Save artifact
         uses: actions/upload-artifact@v4
         with:
           name: gcirone-site
-          path: "dist/apps/gcirone-site/.next"
+          path: "dist/apps/gcirone-site/.next/"
 
   tests:
     needs: build
@@ -91,10 +91,10 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: gcirone-site
-          path: "dist/apps/gcirone-site/.next"
+          path: "dist/apps/gcirone-site/.next/"
 
       - name: Publish github pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
-          folder: "dist/apps/gcirone-site/.next"
+          folder: "dist/apps/gcirone-site/.next/"
