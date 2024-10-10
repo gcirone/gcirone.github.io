@@ -1,0 +1,19 @@
+---
+interface Props {
+  href: string;
+  target?: string;
+}
+
+const { BASE_URL } = import.meta.env;
+const { href, target } = Astro.props;
+const { pathname } = Astro.url;
+
+const isActive = pathname === href.replace('./', BASE_URL);
+const classList = [isActive ? 'active' : ''];
+
+---
+
+<a href={href} target={target} class:list={classList}>
+  <slot/>
+</a>
+

@@ -1,56 +1,30 @@
 {
-  "name": "gcirone",
-  "version": "0.0.0",
+  "name": "astro-base",
+  "version": "0.0.1",
   "license": "MIT",
+  "type": "module",
   "scripts": {
-    "site:serve": "nx serve gcirone-site",
-    "site:build": "nx build gcirone-site",
-    "site:test": "nx test gcirone-site",
-    "site:e2e": "nx e2e gcirone-site-e2e",
-    "site:lint": "nx lint gcirone-site"
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview"
   },
-  "private": true,
   "dependencies": {
-    "next": "14.2.9",
-    "react": "18.3.1",
-    "react-dom": "18.3.1",
-    "tslib": "^2.3.0"
+    "@astrojs/check": "0.9.4",
+    "astro": "^4.15.12",
+    "typescript": "^5.6.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.14.5",
-    "@babel/preset-react": "^7.14.5",
-    "@nx/cypress": "19.7.2",
-    "@nx/eslint": "19.7.2",
-    "@nx/eslint-plugin": "19.7.2",
-    "@nx/jest": "19.7.2",
-    "@nx/js": "19.7.2",
-    "@nx/next": "19.7.2",
-    "@nx/react": "19.7.2",
-    "@nx/workspace": "19.7.2",
-    "@testing-library/react": "15.0.6",
-    "@types/jest": "29.5.12",
-    "@types/node": "22.5.4",
-    "@types/react": "18.3.5",
-    "@types/react-dom": "18.3.0",
-    "@typescript-eslint/eslint-plugin": "7.18.0",
-    "@typescript-eslint/parser": "7.18.0",
-    "babel-jest": "29.7.0",
-    "cypress": "^13.0.0",
-    "eslint": "8.57.0",
-    "eslint-config-next": "14.2.3",
-    "eslint-config-prettier": "9.1.0",
-    "eslint-plugin-cypress": "2.15.2",
-    "eslint-plugin-import": "2.27.5",
-    "eslint-plugin-jsx-a11y": "6.7.1",
-    "eslint-plugin-react": "7.32.2",
-    "eslint-plugin-react-hooks": "4.6.0",
-    "jest": "29.7.0",
-    "jest-environment-jsdom": "29.7.0",
-    "nx": "19.7.2",
-    "prettier": "^3.3.3",
-    "sass": "1.78.0",
-    "ts-jest": "29.2.5",
-    "ts-node": "10.9.2",
-    "typescript": "5.5.4"
-  }
+    "@fontsource/inter": "^5.1.0",
+    "@fontsource/poppins": "^5.1.0",
+    "astro-icon": "^1.1.1",
+    "autoprefixer": "^10.4.20",
+    "open-props": "^1.7.7",
+    "postcss": "^8.4.47",
+    "postcss-jit-props": "^1.0.14"
+  },
+  "browserslist": [
+    "defaults and fully supports es6-module",
+    "maintained node versions"
+  ]
 }

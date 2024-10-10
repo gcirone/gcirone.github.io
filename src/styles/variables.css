@@ -1,0 +1,25 @@
+@import "@fontsource/poppins/300.css";
+@import "@fontsource/poppins/600.css";
+
+:root {
+  --font-main: "Poppins", sans-serif;
+  --max-with: 1920px;
+
+  --primary: var(--choco-5);
+  --secondary: var(--choco-2);
+
+  --bkg: var(--stone-12);
+  --bkg-alt: var(--stone-11);
+  --text: var(--sand-3);
+  --text-alt: var(--sand-7);
+
+  --accent: 136, 58, 234;
+  --accent-light: 224, 204, 250;
+  --accent-dark: 49, 10, 101;
+  --accent-gradient: linear-gradient(
+    45deg,
+    rgb(var(--accent)),
+    rgb(var(--accent-light)) 30%,
+    white 60%
+  );
+}

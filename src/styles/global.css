@@ -1,0 +1,64 @@
+@import "reset.css";
+@import "variables.css";
+
+html {
+  background-color: var(--bkg);
+}
+
+body {
+  font-family: var(--font-main), sans-serif;
+  font-weight: var(--font-weight-3);
+  line-height: var(--font-lineheight-3);
+  max-width: var(--max-with);
+  color: var(--text);
+  margin: auto;
+}
+
+a {
+  color: var(--primary);
+  transition: 1s linear color;
+
+  &:hover,
+  &.active {
+    color: var(--secondary);
+  }
+}
+
+p,
+pre {
+  margin-block: var(--size-2);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: var(--font-weight-6);
+  margin-block: var(--size-1);
+  line-height: var(--font-lineheight-1);
+  color: var(--sand-2);
+}
+
+h1 {
+  font-size: var(--font-size-5);
+  color: var(--sand-1);
+}
+
+h2 {
+  font-size: var(--font-size-4);
+}
+
+h3 {
+  font-size: var(--font-size-3);
+}
+
+h4 {
+  font-size: var(--font-size-2);
+}
+
+h5,
+h6 {
+  font-size: var(--font-size-1);
+}
