@@ -10,10 +10,8 @@ const { pathname } = Astro.url;
 
 const isActive = pathname === href.replace('./', BASE_URL);
 const classList = [isActive ? 'active' : ''];
-
 ---
 
 <a href={href} target={target} class:list={classList}>
-  <slot/>
+  <slot />
 </a>
-
