@@ -4,7 +4,8 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "start": "run-s astro:dev",
+    "start": "run-s build astro:preview",
+    "dev": "run-s astro:dev",
     "build": "run-p astro:check astro:build",
     "astro:dev": "astro dev",
     "astro:preview": "astro preview",
@@ -15,7 +16,9 @@
   },
   "dependencies": {
     "@astrojs/check": "0.9.4",
+    "@types/lodash-es": "^4.17.12",
     "astro": "^4.15.12",
+    "lodash-es": "^4.17.21",
     "typescript": "^5.6.3"
   },
   "devDependencies": {

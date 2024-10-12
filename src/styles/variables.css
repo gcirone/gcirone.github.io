@@ -5,16 +5,23 @@
   --font-main: 'Poppins', sans-serif;
   --max-with: 1920px;
 
-  --primary: var(--choco-5);
-  --secondary: var(--choco-2);
+  --background: var(--stone-12);
+  --background-alt: var(--stone-11);
+  --background-gradient: conic-gradient(
+    from 180deg at 50% 120%,
+    var(--background),
+    50%,
+    var(--background-alt),
+    var(--background)
+  );
 
-  --bkg: var(--stone-12);
-  --bkg-alt: var(--stone-11);
   --text: var(--sand-3);
   --text-alt: var(--sand-7);
+  --text-light: var(--sand-1);
+  --text-dark: var(--sand-10);
 
-  --accent: 136, 58, 234;
-  --accent-light: 224, 204, 250;
-  --accent-dark: 49, 10, 101;
-  --accent-gradient: linear-gradient(45deg, rgb(var(--accent)), rgb(var(--accent-light)) 30%, white 60%);
+  --accent: var(--choco-5);
+  --accent-light: var(--choco-3);
+  --accent-dark: var(--choco-7);
+  --accent-gradient: linear-gradient(45deg, var(--choco-6), var(--choco-7) 30%, var(--choco-5) 100%);
 }
