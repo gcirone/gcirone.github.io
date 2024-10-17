@@ -1,0 +1,33 @@
+{
+  "name": "gc-website",
+  "version": "0.0.1",
+  "license": "MIT",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "run-s build astro:preview",
+    "build": "run-p astro:check astro:build",
+    "dev": "astro dev --port 4321 --host",
+    "astro:preview": "astro preview",
+    "astro:build": "astro build",
+    "astro:check": "astro check"
+  },
+  "dependencies": {
+    "astro": "^4.15.12"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.4",
+    "@fontsource/inter": "^5.1.0",
+    "@fontsource/poppins": "^5.1.0",
+    "astro-icon": "^1.1.1",
+    "autoprefixer": "^10.4.20",
+    "open-props": "^1.7.7",
+    "postcss": "^8.4.47",
+    "postcss-jit-props": "^1.0.14",
+    "prettier-plugin-astro": "^0.14.1"
+  },
+  "browserslist": [
+    "defaults and fully supports es6-module",
+    "maintained node versions"
+  ]
+}

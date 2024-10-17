@@ -1,0 +1,22 @@
+---
+interface Props {
+  id?: string;
+  href?: string;
+  role?: 'link' | 'button';
+  class?: string;
+  target?: string;
+  [prop: string]: unknown;
+}
+
+const { BASE_URL } = import.meta.env;
+const { id, role, class: classProp, href, ...props } = Astro.props;
+
+const { pathname } = Astro.url;
+
+const isActive = pathname === href?.replace('./', BASE_URL);
+const classList = [isActive ? 'active' : '', classProp];
+---
+
+<a id={id} role={role} href={href} {...props} class:list={classList}>
+  <slot />
+</a>

@@ -1,40 +1,31 @@
 {
-  "name": "astro-base",
+  "name": "gcirone-github",
   "version": "0.0.1",
   "license": "MIT",
   "type": "module",
+  "private": true,
   "scripts": {
     "start": "run-s build astro:preview",
-    "dev": "run-s astro:dev",
-    "build": "run-p astro:check astro:build",
-    "astro:dev": "astro dev",
-    "astro:preview": "astro preview",
-    "astro:build": "astro build",
-    "astro:check": "astro check",
-    "format:check": "yarn prettier . --check",
-    "format": "yarn prettier . --write"
+    "image-gen:dev": "npm run dev -w=workers/image-generator",
+    "image-gen:deploy": "npm run deploy -w=workers/image-generator",
+    "website:dev": "npm run dev -w=website",
+    "website:build": "npm run build -w=website",
+    "website:start": "npm run start -w=website",
+    "format:check": "prettier . --check",
+    "format": "prettier . --write"
   },
+  "workspaces": [
+    "workers/image-generator",
+    "website"
+  ],
   "dependencies": {
-    "@astrojs/check": "0.9.4",
-    "@types/lodash-es": "^4.17.12",
-    "astro": "^4.15.12",
     "lodash-es": "^4.17.21",
     "typescript": "^5.6.3"
   },
   "devDependencies": {
-    "@fontsource/inter": "^5.1.0",
-    "@fontsource/poppins": "^5.1.0",
-    "astro-icon": "^1.1.1",
-    "autoprefixer": "^10.4.20",
+    "@types/node": "^20.16.12",
+    "@types/lodash-es": "^4.17.12",
     "npm-run-all": "^4.1.5",
-    "open-props": "^1.7.7",
-    "postcss": "^8.4.47",
-    "postcss-jit-props": "^1.0.14",
-    "prettier": "^3.3.3",
-    "prettier-plugin-astro": "^0.14.1"
-  },
-  "browserslist": [
-    "defaults and fully supports es6-module",
-    "maintained node versions"
-  ]
+    "prettier": "^3.3.3"
+  }
 }
