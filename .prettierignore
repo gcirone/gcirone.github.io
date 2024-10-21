@@ -5,3 +5,4 @@
 
 /.astro
 /.wrangler
+/workers/image-generator/src/index.ts

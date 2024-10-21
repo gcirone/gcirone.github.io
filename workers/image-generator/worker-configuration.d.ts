@@ -2,7 +2,7 @@
 
 interface Env {
   KV_KEYS: KVNamespace;
-  NODE_ENV: 'production';
+  NODE_ENV: string;
   SECRET_KEY: string;
   API_TOKEN: string;
   DB_DATA: D1Database;
