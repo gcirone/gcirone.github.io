@@ -1,0 +1,25 @@
+name: self-hosted-runner
+on:
+  workflow_dispatch:
+
+env:
+  CUSTOM_WORKSPACE: ${{ github.workspace }}
+  CUSTOM_NAME: john
+
+jobs:
+
+  build:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout changes
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Build application
+        run: |
+          pwd
+          ls -al .
+          echo $CUSTOM_NAME
+          echo $CUSTOM_WORKSPACE
+          docker -v
