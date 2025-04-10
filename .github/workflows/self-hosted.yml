@@ -16,10 +16,40 @@ jobs:
         with:
           fetch-depth: 2
 
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          version: 10
+          run_install: false
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
       - name: Build application
         run: |
           pwd
           ls -al .
-          echo $CUSTOM_NAME
-          echo $CUSTOM_WORKSPACE
           docker -v
+
+
+
+  container-test-job:
+    runs-on: self-hosted
+    container:
+      image: node:22
+      env:
+        NODE_ENV: development
+      ports:
+        - 8075
+      volumes:
+        - my_docker_volume:/volume_mount
+      options: --cpus 1
+    steps:
+      - name: Check for dockerenv file
+        run: (ls /.dockerenv && echo Found dockerenv) || (echo No dockerenv)
