@@ -8,7 +8,7 @@ env:
 
 jobs:
 
-  build:
+  host:
     runs-on: self-hosted
     steps:
       - name: Checkout changes
@@ -33,13 +33,9 @@ jobs:
 
       - name: Build application
         run: |
-          pwd
           ls -al .
-          docker -v
 
-
-
-  container-test-job:
+  container:
     runs-on: self-hosted
     container:
       image: node:22
@@ -51,5 +47,12 @@ jobs:
         - my_docker_volume:/volume_mount
       options: --cpus 1
     steps:
+      - name: Checkout changes
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
       - name: Check for dockerenv file
-        run: (ls /.dockerenv && echo Found dockerenv) || (echo No dockerenv)
+        run: |
+          (ls /.dockerenv && echo Found dockerenv) || (echo No dockerenv)
+          ls -al .
