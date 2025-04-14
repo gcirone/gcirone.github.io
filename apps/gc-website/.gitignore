@@ -1,0 +1,7 @@
+.cache
+.react-router
+.env
+
+build
+public/build
+test-output

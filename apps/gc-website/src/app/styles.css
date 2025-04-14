@@ -1,0 +1,77 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: Poppins, sans-serif;
+  --font-serif: Georgia, serif;
+  --font-mono: Monaco, monospace;
+  --color-primary: var(--color-orange-500);
+  --color-secondary: var(--color-orange-600);
+}
+
+:root {
+  @variant dark {
+    --color-primary: var(--color-orange-400);
+    --color-secondary: var(--color-orange-500);
+  }
+}
+
+/*@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));*/
+/*@theme dark {*/
+/*  --color-primary: var(--color-orange-500);*/
+/*}*/
+
+@layer base {
+  body {
+    @apply bg-orange-100 text-stone-900 dark:bg-stone-900 dark:text-orange-100;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply leading-tight font-medium uppercase;
+  }
+
+  h1 {
+    @apply text-3xl font-bold;
+  }
+
+  h2 {
+    @apply text-xl;
+  }
+
+  h3 {
+    @apply text-lg;
+  }
+
+  p,
+  pre {
+    @apply my-2;
+  }
+
+  a {
+    @apply text-primary transition-colors duration-300 ease-linear;
+
+    &:hover,
+    &.active {
+      @apply text-secondary;
+    }
+
+    &.nav-link {
+      @apply text-orange-100;
+
+      &:hover,
+      &.active {
+        @apply text-orange-50;
+      }
+    }
+  }
+}
+
+@layer components {
+}
+
+@layer utilities {
+  /*.text-primary {*/
+  /*  @apply text-orange-600 dark:text-orange-500;*/
+  /*}*/
+}
