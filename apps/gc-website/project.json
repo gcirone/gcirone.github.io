@@ -39,6 +39,17 @@
       "configurations": {},
       "parallelism": true
     },
+    "serve": {
+      "dependsOn": ["build"],
+      "options": {
+        "cwd": "apps/gc-website",
+        "command": "react-router-serve build/server/index.js"
+      },
+      "syncGenerators": ["@nx/js:typescript-sync"],
+      "executor": "nx:run-commands",
+      "configurations": {},
+      "parallelism": true
+    },
     "lint": {
       "cache": true,
       "options": {
@@ -60,34 +71,67 @@
       "configurations": {},
       "parallelism": true
     },
-    "serve": {
-      "dependsOn": ["build"],
+    "test": {
       "options": {
         "cwd": "apps/gc-website",
-        "command": "react-router-serve build/server/index.js"
+        "command": "vitest"
       },
-      "syncGenerators": ["@nx/js:typescript-sync"],
+      "cache": true,
+      "inputs": ["default", "^production", { "externalDependencies": ["vitest"] }, { "env": "CI" }],
+      "outputs": ["{projectRoot}/test-output/vitest/coverage"],
       "executor": "nx:run-commands",
       "configurations": {},
-      "parallelism": true
+      "parallelism": true,
+      "dependsOn": ["^build"]
     },
+    "e2e": {
+      "options": {
+        "cwd": "apps/gc-website",
+        "command": "playwright test"
+      },
+      "parallelism": false,
+      "cache": true,
+      "inputs": [
+        "default",
+        "^production",
+        {
+          "externalDependencies": ["@playwright/test"]
+        }
+      ],
+      "outputs": [
+        "{projectRoot}/test-output/playwright/output",
+        "{projectRoot}/test-output/playwright/report"
+      ],
+      "executor": "nx:run-commands",
+      "configurations": {}
+    },
+
     "container": {
       "executor": "@nx-tools/nx-container:build",
       "dependsOn": ["build"],
       "options": {
+        "context": "apps/gc-website",
         "engine": "docker",
-        "metadata": {
-          "images": ["gcirone-ui"],
-          "load": true,
-          "tags": [
-            "type=schedule",
-            "type=ref,event=branch",
-            "type=ref,event=tag",
-            "type=ref,event=pr",
-            "type=sha,prefix=sha-"
-          ]
+        "quiet": true,
+        "load": true
+      },
+      "configurations": {
+        "ui": {
+          "file": "apps/gc-website/gc-ui.dockerfile",
+          "metadata": {
+            "images": ["gc-website-ui"],
+            "tags": [
+              "type=schedule",
+              "type=ref,event=branch",
+              "type=ref,event=tag",
+              "type=ref,event=pr",
+              "type=sha,prefix=sha-"
+            ]
+          }
         }
       }
     }
+
+
   }
 }

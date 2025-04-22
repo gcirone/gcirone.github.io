@@ -14,5 +14,5 @@ test('renders loader data', async () => {
   //
   // await waitFor(() => screen.findByText('Hello there,'));
 
-  expect(true).toBeTruthy()
+  expect(true).toBeTruthy();
 });

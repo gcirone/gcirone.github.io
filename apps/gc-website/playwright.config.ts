@@ -21,19 +21,19 @@ export default defineConfig({
   use: {
     baseURL,
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
+    trace: 'on-first-retry'
   },
   /* Run your local dev server before starting the tests */
   webServer: {
     command: 'npx nx serve gc-website',
     url: 'http://localhost:3000',
     reuseExistingServer: !process.env.CI,
-    cwd: workspaceRoot,
+    cwd: workspaceRoot
   },
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: { ...devices['Desktop Chrome'] }
     },
 
     // {
@@ -43,8 +43,8 @@ export default defineConfig({
 
     {
       name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-    },
+      use: { ...devices['Desktop Safari'] }
+    }
 
     // Uncomment for mobile browsers support
     /* {
@@ -65,5 +65,5 @@ export default defineConfig({
       name: 'Google Chrome',
       use: { ...devices['Desktop Chrome'], channel: 'chrome' },
     } */
-  ],
+  ]
 });

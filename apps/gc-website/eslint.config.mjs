@@ -9,11 +9,18 @@ export default [
   {
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
     // Override or add rules here
-    rules: { '@nx/enforce-module-boundaries': 'warn' }
+    rules: {
+      '@nx/enforce-module-boundaries': [
+        'error',
+        {
+          allowCircularSelfDependency: true
+        }
+      ]
+    }
   },
   {
     files: ['**/*.ts', '**/*.js'],
     // Override or add rules here
-    rules: {},
-  },
+    rules: {}
+  }
 ];

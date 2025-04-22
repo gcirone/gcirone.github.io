@@ -1,5 +1,3 @@
-'use client';
-
 // import { logger } from '@gc/shared/lib/logger';
 import { useEffect } from 'react';
 import { NavLink, NavLinkProps } from 'react-router';
@@ -21,7 +19,7 @@ export default function Nav() {
       <ul className="flex flex-row gap-4">
         {navLinks.map((link, index) => (
           <NavLink
-            className="font-medium uppercase nav-link"
+            className="nav-link font-medium uppercase"
             children={link.children}
             key={index}
             to={link.to}

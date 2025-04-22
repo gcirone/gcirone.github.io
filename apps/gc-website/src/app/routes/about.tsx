@@ -4,5 +4,5 @@ import { Route } from './+types/about';
 export default AboutPage;
 
 export const meta: Route.MetaFunction = () => [
-  { title: 'About - Gianluca Cirone - Mastering Technology with Passion Since 2000' },
+  { title: 'About - Gianluca Cirone - Mastering Technology with Passion Since 2000' }
 ];
