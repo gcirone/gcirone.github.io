@@ -48,14 +48,11 @@ export function requestInfo(c: Context) {
     origin: origin,
     pathname: pathname,
     method: c.req.method,
-    envs: {
-      apiToken: c.env.API_TOKEN
-    },
     headers: {
       userAgent: c.req.header('user-agent'),
+      userIp: xRealIp || cfConnectingIp || xForwardedFor,
       host: c.req.header('host'),
-      refer: c.req.header('refer'),
-      ip: xRealIp || cfConnectingIp || xForwardedFor
+      refer: c.req.header('refer')
     },
     geo: {
       longitude: c.req.raw.cf?.longitude,
@@ -64,10 +61,38 @@ export function requestInfo(c: Context) {
       postalCode: c.req.raw.cf?.postalCode,
       region: c.req.raw.cf?.region,
       regionCode: c.req.raw.cf?.regionCode,
-      area: c.req.raw.cf?.colo,
+      colo: c.req.raw.cf?.colo,
       country: c.req.raw.cf?.country,
       continent: c.req.raw.cf?.continent,
-      timezone: c.req.raw.cf?.timezone
+      timezone: c.req.raw.cf?.timezone,
+      asOrganization: c.req.raw.cf?.asOrganization
     }
   };
 }
+
+export const baseHTML = (content: string | Promise<string>) => {
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Generator Playground</title>
+    <style>
+      body { background: #f5e8f5; font-family: "Helvetica", sans-serif; color: #716262; margin: 1rem; }
+      a { color: #0c0b0b; text-decoration: underline; }
+      input, button { padding: .4rem .8rem; background: #978e97; border: 0; color: #f5e8f5; }
+      input::placeholder { color: #d1c7d1; }
+      fieldset div { padding: .2rem .4rem }
+    </style>
+  </head>
+  <body>
+    ${content}
+    <script>
+      window.addEventListener('load', () => {
+        console.log('on load');
+      })
+    </script>
+  </body>
+</html>
+`;
+};

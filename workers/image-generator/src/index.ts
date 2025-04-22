@@ -1,4 +1,4 @@
-import { isUUID, bufferFromStream, requestInfo } from './utils';
+import { isUUID, bufferFromStream, requestInfo, baseHTML } from './utils';
 import { HTTPException } from 'hono/http-exception';
 import { StatusCode } from 'hono/utils/http-status';
 import { snakeCase } from 'lodash-es';
@@ -14,7 +14,65 @@ app.use(logger());
 
 app.use(async (c, next) => {
   console.log(requestInfo(c));
+  c.setRenderer((content) => c.html(baseHTML(content)));
   await next();
+});
+
+app.get('/', async (c) => {
+  const imageList = ``;
+
+  return c.render(`
+    <h1>Image Generator Playground</h1>
+    <p>Lorem ipsum dolor sit amend <a href="/">nist</a> friends.</p>
+
+    <script>
+      const onSubmit = (e) => {
+        // console.log('onSubmit', e)
+        console.log('name', e.target.name.value)
+        console.log('prompt', e.target.prompt.value)
+
+        const formData = new FormData(e.target);
+
+        for (const [key, value] of formData) {
+          console.log('formData', key, value);
+        }
+
+
+        e.preventDefault();
+      }
+    </script>
+
+
+    <form id="generate" onsubmit="onSubmit(window.event)">
+      <fieldset>
+        <legend>Generate</legend>
+        <div>
+          <label for="name">Name: </label>
+          <input type="text" id="name" placeholder="image name" />
+        </div>
+        <div>
+          <label for="prompt">Prompt: </label>
+          <input type="text" id="prompt" placeholder="image prompt" />
+        </div>
+        <div>
+          <button type="submit">Genergate</button>
+        </div>
+      </fieldset>
+    </form>
+
+     <fieldset>
+        <legend>Images</legend>
+        <div>
+          <ul>
+            <li>ciao</li>
+            <li>ciao2</li>
+          </ul>
+        </div>
+      </fieldset>
+    </form>
+
+
+  `);
 });
 
 app.get('/generate/:prompt?', async (c) => {
@@ -22,14 +80,13 @@ app.get('/generate/:prompt?', async (c) => {
   const prompt = c.req.param('prompt') || defaultPrompt;
   // console.log(prompt);
 
-  const textPrompt = `${prompt}. No extra info. Just the name.`;
-  const textOutput = await c.env.AI.run('@cf/meta/llama-3.1-8b-instruct', { prompt: textPrompt });
-  const imagePrompt = (textOutput as Record<string, string>).response;
+  // const textPrompt = `${prompt}. No extra info. Just the name.`;
+  // const textOutput = await c.env.AI.run('@cf/meta/llama-3.1-8b-instruct', { prompt: textPrompt });
+  // const imagePrompt = (textOutput as Record<string, string>).response;
 
-  const imageOutput = await c.env.AI.run('@cf/stabilityai/stable-diffusion-xl-base-1.0', {
-    prompt: imagePrompt,
-    num_steps: 20
-  });
+  const imageInputs = { prompt: prompt, num_steps: 20 };
+  const imageModels = '@cf/stabilityai/stable-diffusion-xl-base-1.0';
+  const imageOutput = await c.env.AI.run(imageModels, imageInputs);
 
   const imageData = await bufferFromStream(imageOutput);
   const imageName = `${snakeCase(prompt)}.png`;
@@ -60,7 +117,7 @@ app.get('/image/:id/view', async (c) => {
     throw new HTTPException(404, { message: 'Image not found!' });
   }
 
-  const imageData = results[0].image_data as ArrayBuffer;
+  const imageData = results?.[0].image_data as ArrayBuffer;
 
   return c.body(Buffer.from(imageData), {
     headers: {
