@@ -1,15 +1,15 @@
 import { Outlet } from 'react-router';
-import Header from '~/widgets/header/header';
+import Nav from '~/widgets/nav/nav';
 import Footer from '~/widgets/footer/footer';
 
 export default function MainLayout() {
   return (
-    <div className="min-h-dvh antialiased">
-      <Header />
-      <div className="p-4">
+    <>
+      <Nav />
+      <div className="container mx-auto px-6 py-26">
         <Outlet />
       </div>
       <Footer />
-    </div>
+    </>
   );
 }

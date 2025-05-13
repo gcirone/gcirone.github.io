@@ -9,7 +9,7 @@ export default function RootLayout({ children }: React.PropsWithChildren) {
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className="min-h-dvh antialiased">
         {children}
         <ScrollRestoration />
         <Scripts />

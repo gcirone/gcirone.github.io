@@ -4,25 +4,29 @@
   --font-sans: Poppins, sans-serif;
   --font-serif: Georgia, serif;
   --font-mono: Monaco, monospace;
+
   --color-primary: var(--color-orange-500);
   --color-secondary: var(--color-orange-600);
-}
 
-:root {
-  @variant dark {
-    --color-primary: var(--color-orange-400);
-    --color-secondary: var(--color-orange-500);
-  }
+  --color-dark: var(--color-stone-900);
+  --color-light: var(--color-orange-50);
 }
 
 /*@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));*/
-/*@theme dark {*/
-/*  --color-primary: var(--color-orange-500);*/
+@theme dark {
+  --color-primary: var(--color-orange-500);
+  --color-secondary: var(--color-orange-600);
+}
+/*:root {*/
+/*  @variant dark {*/
+/*    --color-primary: var(--color-orange-400);*/
+/*    --color-secondary: var(--color-orange-500);*/
+/*  }*/
 /*}*/
 
 @layer base {
   body {
-    @apply bg-orange-100 text-stone-900 dark:bg-stone-900 dark:text-orange-100;
+    @apply bg-orange-50 text-stone-900 dark:bg-stone-900 dark:text-orange-50;
   }
 
   h1,
@@ -54,15 +58,6 @@
     &:hover,
     &.active {
       @apply text-secondary;
-    }
-
-    &.nav-link {
-      @apply text-orange-100;
-
-      &:hover,
-      &.active {
-        @apply text-orange-50;
-      }
     }
   }
 }
