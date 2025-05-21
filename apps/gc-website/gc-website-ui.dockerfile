@@ -5,7 +5,6 @@ RUN apk add --no-cache bash curl jq nano
 
 WORKDIR /app
 
-ENV CI=1
 
 FROM base AS runner
 

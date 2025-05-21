@@ -117,9 +117,13 @@
       },
       "configurations": {
         "ui": {
-          "file": "apps/gc-website/gc-ui.dockerfile",
+          "file": "apps/gc-website/gc-website-ui.dockerfile",
+          "push": true,
+          "build-args": [
+            "VERSION=$CI_COMMIT_SHA"
+          ],
           "metadata": {
-            "images": ["gc-website-ui"],
+            "images": ["registry.gcirone.com/gc-website/gc-website-ui"],
             "tags": [
               "type=schedule",
               "type=ref,event=branch",
