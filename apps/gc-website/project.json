@@ -105,7 +105,6 @@
       "executor": "nx:run-commands",
       "configurations": {}
     },
-
     "container": {
       "executor": "@nx-tools/nx-container:build",
       "dependsOn": ["build"],
@@ -136,6 +135,5 @@
         }
       }
     }
-
   }
 }
