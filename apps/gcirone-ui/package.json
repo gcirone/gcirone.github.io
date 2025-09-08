@@ -1,0 +1,10 @@
+{
+  "name": "gcirone-ui",
+  "version": "0.0.1",
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "@hono/node-server": "^1.19.1",
+    "hono": "^4.9.6"
+  }
+}

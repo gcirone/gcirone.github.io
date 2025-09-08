@@ -8,8 +8,8 @@ const vitePlugins = [tailwindCss(), reactRouter(), nxViteTsPaths()];
 
 export default defineConfig(() => ({
   root: __dirname,
-  cacheDir: '../../node_modules/.vite/apps/gc-site-ui',
-  plugins: process.env.VITEST ? [] : vitePlugins,
+  cacheDir: '../../node_modules/.vite/apps/gc-website',
+  plugins: process.env.VITEST ? [] as any : vitePlugins,
   // Uncomment this if you are using workers.
   // worker: {
   //  plugins: [ nxViteTsPaths() ],
