@@ -1,8 +1,9 @@
 /// <reference types='vitest' />
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
+import build, { NodeBuildOptions } from '@hono/vite-build/node';
 import nodeAdapter from '@hono/vite-dev-server/node';
 import devServer from '@hono/vite-dev-server';
-import build from '@hono/vite-build/node';
+import tailwindCss from '@tailwindcss/vite';
 import { defineConfig } from 'vite';
 
 export default defineConfig(({ mode }) => {
@@ -13,9 +14,10 @@ export default defineConfig(({ mode }) => {
     return {
       root,
       cacheDir,
+      plugins: [tailwindCss()],
       build: {
         rollupOptions: {
-          input: ['./src/app/client.ts', './src/app/styles.css'],
+          input: ['./src/app/client.tsx', './src/app/styles.css'],
           output: {
             dir: './dist/client',
             entryFileNames: 'static/[name]-[hash].js',
@@ -29,8 +31,7 @@ export default defineConfig(({ mode }) => {
         manifest: true
       },
       esbuild: {
-        // jsxImportSource: 'hono/jsx',
-        // jsxImportSource: 'hono/jsx/dom'
+        jsxImportSource: 'react'
       }
     };
   }
@@ -40,24 +41,24 @@ export default defineConfig(({ mode }) => {
     cacheDir,
     plugins: [
       nxViteTsPaths(),
+      tailwindCss(),
 
       devServer({
-        entry: 'src/app/server.ts',
+        entry: 'src/app/server.tsx',
         adapter: nodeAdapter
       }),
 
       build({
-        entry: './src/app/server.ts',
-        entryContentBeforeHooks: [],
-        entryContentAfterHooks: [],
+        ...setupEntryContentHooks(),
+        entry: './src/app/server.tsx',
         outputDir: './dist/server',
         output: 'main.js',
-        emptyOutDir: true
+        emptyOutDir: true,
+        minify: false
       })
     ],
     ssr: {
-      manifest: true,
-      external: ['hono', '@hono/node-server']
+      external: ['hono', '@hono/node-server', 'react', 'react-dom', './routes/home']
     },
     build: {
       ssrManifest: true,
@@ -66,7 +67,9 @@ export default defineConfig(({ mode }) => {
       commonjsOptions: { transformMixedEsModules: true }
     },
     define: {
-      'import.meta.vitest': undefined
+      'import.meta.vitest': undefined,
+      'import.meta.env.PORT': 'process.env.PORT',
+      'import.meta.env.HOST': 'process.env.HOST'
     },
     test: {
       name: 'gcirone-ui',
@@ -83,3 +86,35 @@ export default defineConfig(({ mode }) => {
     }
   };
 });
+
+function setupEntryContentHooks() {
+  return {
+    entryContentBeforeHooks: [
+      async (appName: string) => {
+        return `import { serveStatic } from '@hono/node-server/serve-static';
+          ${appName}.use('*', serveStatic({ root: import.meta.env.PROD ? './dist/client' : './public' }));
+          ${appName}.get('/favicon.ico', () => new Response(null, { status: 204 }));
+          ${appName}.get('/.well-known/*', () => new Response(null, { status: 204 }));
+        `;
+      }
+    ],
+    entryContentAfterHooks: [
+      async (appName: string) => {
+        return `import { serve } from '@hono/node-server';
+          const port = parseInt(import.meta.env.PORT || '3000', 10);
+          const hostname = import.meta.env.HOST || 'localhost';
+          const server = serve({ fetch: ${appName}.fetch, port: port.toString() }, () => {
+            console.log('Listening on http://' + hostname + ':' + port);
+          });
+          process.on('SIGINT', () => { server.close(); process.exit(0); });
+          process.on('SIGTERM', () => {
+            server.close((err) => {
+              if (err) { console.error(err); process.exit(1); }
+              process.exit(0);
+            });
+          });
+        `;
+      }
+    ]
+  } as NodeBuildOptions;
+}

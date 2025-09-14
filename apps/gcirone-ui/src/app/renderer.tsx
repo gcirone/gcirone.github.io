@@ -1,41 +1,40 @@
-import { jsxRenderer } from 'hono/jsx-renderer';
-import type { Manifest } from 'vite';
+import { reactRenderer } from '@hono/react-renderer';
+import Script from '../shared/ui/Script';
+import Link from '../shared/ui/Link';
 
-export default jsxRenderer(
+export default reactRenderer(
   ({ children }) => {
-    const manifestImport = import.meta.glob<{ default: Manifest }>(
-      '/dist/client/.vite/manifest.json',
-      {
-        eager: true
-      }
-    );
-
-    const manifest = Object.values(manifestImport).at(0)?.default || {};
-
-    const Styles = () =>
-      import.meta.env.PROD ? (
-        <link rel="stylesheet" href={'/' + manifest['src/app/styles.css'].file} />
-      ) : (
-        <link rel="stylesheet" href="/src/app/styles.css" />
-      );
-
-    const Scripts = () =>
-      import.meta.env.PROD ? (
-        <script type="module" src={'/' + manifest['src/app/client.ts'].file} async={true} />
-      ) : (
-        <script type="module" src="/src/app/client.ts" async={true} />
-      );
-
     return (
       <html lang="en">
         <head>
           <meta charSet="utf-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
           <link rel="icon" href="/favicon.ico" />
-          <Styles />
-          <Scripts />
+
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+          {[
+            'https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2',
+            'https://fonts.gstatic.com/s/spacegrotesk/v22/V8mDoQDjQSkFtoMM3T6r8E7mPbF4C_k3HqU.woff2'
+          ].map((href, i) => (
+            <link
+              key={i}
+              rel="preload"
+              href={href}
+              crossOrigin="anonymous"
+              type="font/woff2"
+              as="font"
+            />
+          ))}
+
+          {/*<link rel="preload" href="/src/assets/logo.svg" fetchPriority="high" />*/}
+          <Link rel="preload" href="/src/app/styles.css" as="style" fetchPriority="high" />
+          <Link rel="modulepreload" href="/src/app/client.tsx" as="script" fetchPriority="high" />
+
+          <Link rel="stylesheet" href="/src/app/styles.css" />
+          <Script type="module" src="/src/app/client.tsx" />
         </head>
-        <body>{children}</body>
+        <body className="bg-gray-900 text-white antialiased">{children}</body>
       </html>
     );
   },
