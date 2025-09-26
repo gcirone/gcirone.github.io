@@ -1,5 +1,5 @@
 import { getAssetManifest } from '../lib/manifet';
-import type { JSX } from 'hono/jsx/jsx-runtime';
+import type { JSX } from 'react';
 
 export default function Script(options: JSX.IntrinsicElements['script']) {
   const { src, ...rest } = options;

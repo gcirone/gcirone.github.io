@@ -1,3 +1,4 @@
+import { serveStatic } from '@hono/node-server/serve-static';
 import { isValidElement } from 'react';
 import { showRoutes } from 'hono/dev';
 import { logger } from 'hono/logger';
@@ -6,6 +7,10 @@ import { routes } from './routes';
 import { Hono } from 'hono';
 
 const app = new Hono();
+
+app.use('*', serveStatic({ root: import.meta.env.PROD ? './dist/client' : './public' }));
+app.get('/favicon.ico', () => new Response(null, { status: 204 }));
+app.get('/.well-known/*', () => new Response(null, { status: 204 }));
 
 // setup middlewares
 app.use('*', logger());

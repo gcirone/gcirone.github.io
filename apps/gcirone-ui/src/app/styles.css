@@ -25,6 +25,14 @@
       format('woff2');
   }
 
+  @font-face {
+    font-family: 'Icons';
+    font-style: normal;
+    font-weight: normal;
+    font-display: swap;
+    src: url(/assets/fonts/icons.woff2?anx14k) format('woff2');
+  }
+
   h1,
   h2,
   h3,
@@ -45,6 +53,29 @@
     @variant dark {
       background-color: var(--color-black);
     }
+  }
+
+  [class^='icon-'],
+  [class*=' icon-'] {
+    font-family: 'Icons', sans-serif !important;
+    speak: never;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .icon-logo:before {
+    content: '\e902';
+  }
+  .icon-menu:before {
+    content: '\e900';
+  }
+  .icon-archive:before {
+    content: '\e901';
   }
 }
 

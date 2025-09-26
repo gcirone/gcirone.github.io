@@ -2,7 +2,7 @@
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 import build, { NodeBuildOptions } from '@hono/vite-build/node';
 import nodeAdapter from '@hono/vite-dev-server/node';
-import devServer from '@hono/vite-dev-server';
+import devServer, { defaultOptions } from '@hono/vite-dev-server';
 import tailwindCss from '@tailwindcss/vite';
 import { defineConfig } from 'vite';
 
@@ -45,7 +45,11 @@ export default defineConfig(({ mode }) => {
 
       devServer({
         entry: 'src/app/server.tsx',
-        adapter: nodeAdapter
+        adapter: nodeAdapter,
+        exclude: [
+          ...defaultOptions.exclude,
+          '/assets/*',
+        ],
       }),
 
       build({
@@ -89,15 +93,7 @@ export default defineConfig(({ mode }) => {
 
 function setupEntryContentHooks() {
   return {
-    entryContentBeforeHooks: [
-      async (appName: string) => {
-        return `import { serveStatic } from '@hono/node-server/serve-static';
-          ${appName}.use('*', serveStatic({ root: import.meta.env.PROD ? './dist/client' : './public' }));
-          ${appName}.get('/favicon.ico', () => new Response(null, { status: 204 }));
-          ${appName}.get('/.well-known/*', () => new Response(null, { status: 204 }));
-        `;
-      }
-    ],
+    entryContentBeforeHooks: [],
     entryContentAfterHooks: [
       async (appName: string) => {
         return `import { serve } from '@hono/node-server';

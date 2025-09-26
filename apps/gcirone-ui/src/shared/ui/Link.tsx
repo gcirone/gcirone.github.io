@@ -1,5 +1,5 @@
 import { getAssetManifest } from '../lib/manifet';
-import type { JSX } from 'hono/jsx/jsx-runtime';
+import type { JSX } from 'react';
 
 export default function Link(options: JSX.IntrinsicElements['link']) {
   const { href, rel, ...rest } = options;

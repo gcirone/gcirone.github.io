@@ -1,29 +1,23 @@
-import Layout from './layouts/Layout';
-import { lazy, Suspense } from 'react';
+import MainLayout from './layouts/MainLayout';
 import apiHealthCheck from './routes/api/health-check';
-
-const Home = lazy(() => import('./routes/home'));
-const Blog = lazy(() => import('./routes/blog'));
+import Home from './routes/home';
+import Blog from './routes/blog';
 
 export const routes = [
   {
     path: '/',
     children: (
-      <Layout>
-        <Suspense fallback={'loading home'}>
-          <Home />
-        </Suspense>
-      </Layout>
+      <MainLayout>
+        <Home />
+      </MainLayout>
     )
   },
   {
     path: '/blog/*',
     children: (
-      <Layout>
-        <Suspense fallback={'loading blog'}>
-          <Blog />
-        </Suspense>
-      </Layout>
+      <MainLayout>
+        <Blog />
+      </MainLayout>
     )
   },
   {
