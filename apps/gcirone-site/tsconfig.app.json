@@ -14,13 +14,7 @@
     "jsx": "react-jsx",
     "jsxImportSource": "hono/jsx"
   },
-  "exclude": [
-    "out-tsc",
-    "dist",
-    "src/**/*.spec.ts",
-    "src/**/*.test.ts",
-    "eslint.config.mjs"
-  ],
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["out-tsc", "dist", "**/*.spec.ts", "**/*.test.ts", "eslint.config.mjs"],
+  "include": ["**/*.ts", "**/*.tsx"],
   "references": []
 }

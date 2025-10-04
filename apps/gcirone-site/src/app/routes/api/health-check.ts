@@ -2,7 +2,7 @@ import { Hono } from 'hono';
 
 const app = new Hono();
 
-app.get('/', async (c) => {
+app.get('/api/health-check', async (c) => {
   return c.json({ status: 'OK' });
 });
 

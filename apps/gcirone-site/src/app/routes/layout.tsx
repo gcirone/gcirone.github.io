@@ -1,6 +1,5 @@
 import themeMode from '../../shared/ui/theme/theme-mode?raw';
 import { sanitizeJs } from '../../shared/lib/sanitize';
-import { jsxRenderer } from 'hono/jsx-renderer';
 import { PropsWithChildren } from 'hono/jsx';
 import Script from '../../shared/ui/Script';
 import Link from '../../shared/ui/Link';
@@ -46,8 +45,3 @@ export function RootLayout({ children }: PropsWithChildren) {
     </html>
   );
 }
-
-export default jsxRenderer(RootLayout, {
-  docType: true,
-  stream: true
-});

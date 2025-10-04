@@ -1,3 +1,8 @@
 import { HomePage } from '../../pages/Home';
+import { Hono } from 'hono';
 
-export default HomePage;
+const page = new Hono();
+
+page.get('/', (c) => c.render(<HomePage />));
+
+export default page;

@@ -28,8 +28,18 @@
       "configurations": {},
       "parallelism": true
     },
-
     "dev": {
+      "options": {
+        "cwd": "apps/gcirone-site",
+        "command": "vite dev",
+        "args": ["--port 3000"]
+      },
+      "syncGenerators": ["@nx/js:typescript-sync"],
+      "executor": "nx:run-commands",
+      "configurations": {},
+      "parallelism": true
+    },
+    "dev-prod": {
       "options": {
         "cwd": "apps/gcirone-site",
         "parallel": true,

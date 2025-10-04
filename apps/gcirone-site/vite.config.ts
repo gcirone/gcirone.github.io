@@ -1,22 +1,19 @@
 import { nxCopyAssetsPlugin } from '@nx/vite/plugins/nx-copy-assets.plugin';
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
-// @ts-expect-error vite
+import devServer, { defaultOptions } from '@hono/vite-dev-server';
+import nodeAdapter from '@hono/vite-dev-server/node';
+import { defineConfig, UserConfig } from 'vite';
 import tailwindCss from '@tailwindcss/vite';
 import { builtinModules } from 'module';
-import { defineConfig } from 'vite';
-import { resolve, join } from 'node:path';
+import path from 'node:path';
 
 export default defineConfig(({ mode }) => {
-  const cacheDir = '../../node_modules/.vite/apps/gcirone-site';
+  const cacheDir = path.resolve('../../node_modules/.vite/apps/gcirone-site');
   const isProd = process.env.NODE_ENV === 'production';
-  const isWatch = process.argv.includes('--watch')
-  const root = resolve(__dirname);
+  const root = path.resolve(__dirname);
   const envPrefix = 'APP_';
 
-  console.log('env', process.env.NODE_ENV);
-  console.log('mode', mode);
-
-  const clientConfig = {
+  const clientConfig: UserConfig = {
     cacheDir,
     envPrefix,
     root,
@@ -29,7 +26,7 @@ export default defineConfig(({ mode }) => {
       cssCodeSplit: true,
       emptyOutDir: true,
       manifest: true,
-      minify: isProd && !isWatch,
+      minify: isProd,
       rollupOptions: {
         input: ['./src/app/client.tsx', './src/assets/styles.css'],
         output: {
@@ -44,11 +41,20 @@ export default defineConfig(({ mode }) => {
     }
   };
 
-  const serverConfig = {
+  const serverConfig: UserConfig = {
     cacheDir,
     envPrefix,
     root,
-    plugins: [nxViteTsPaths(), nxCopyAssetsPlugin(['package.json'])],
+    plugins: [
+      nxCopyAssetsPlugin(['package.json']),
+      nxViteTsPaths(),
+      tailwindCss(),
+      devServer({
+        exclude: [...defaultOptions.exclude, /.*\.woff2/],
+        entry: './src/app/server.tsx',
+        adapter: nodeAdapter
+      })
+    ],
     ssr: {
       target: 'node'
     },
@@ -58,7 +64,7 @@ export default defineConfig(({ mode }) => {
       copyPublicDir: false,
       emptyOutDir: true,
       ssrManifest: true,
-      minify: isProd && !isWatch,
+      minify: isProd,
       ssr: true,
       commonjsOptions: {
         transformMixedEsModules: true
@@ -77,9 +83,7 @@ export default defineConfig(({ mode }) => {
 
   if (mode === 'client') {
     return clientConfig;
-  } else if (mode === 'server') {
-    return serverConfig;
   } else {
-    return {};
+    return serverConfig;
   }
 });
