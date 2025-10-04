@@ -1,0 +1,62 @@
+{
+  "name": "gcirone-site",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/gcirone-site/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": [
+        "production",
+        "^production",
+        {
+          "externalDependencies": ["@hono/node-server"]
+        }
+      ],
+      "outputs": [
+        "{workspaceRoot}/apps/gcirone-site/dist/client",
+        "{workspaceRoot}/apps/gcirone-site/dist/server"
+      ],
+      "options": {
+        "cwd": "apps/gcirone-site",
+        "command": "vite build --mode client && vite build --mode server"
+      },
+      "syncGenerators": ["@nx/js:typescript-sync"],
+      "executor": "nx:run-commands",
+      "configurations": {},
+      "parallelism": true
+    },
+
+    "dev": {
+      "options": {
+        "cwd": "apps/gcirone-site",
+        "parallel": true,
+        "commands": [
+          "node --watch --watch-preserve-output dist/server/main",
+          "vite build --watch --mode client",
+          "vite build --watch --mode server"
+        ],
+        "env": {
+          "NODE_ENV": "production"
+        }
+      },
+      "syncGenerators": ["@nx/js:typescript-sync"],
+      "executor": "nx:run-commands",
+      "configurations": {},
+      "parallelism": true
+    },
+    "serve": {
+      "dependsOn": ["build"],
+      "options": {
+        "cwd": "apps/gcirone-site",
+        "command": "node dist/server/main"
+      },
+      "syncGenerators": ["@nx/js:typescript-sync"],
+      "executor": "nx:run-commands",
+      "configurations": {},
+      "parallelism": true
+    }
+  }
+}

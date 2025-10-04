@@ -8,6 +8,9 @@
     },
     {
       "path": "./apps/gcirone-ui"
+    },
+    {
+      "path": "./apps/gcirone-site"
     }
   ]
 }
