@@ -1,6 +1,6 @@
-import jsxRenderer from './middlewares/jsx-renderer';
 import type { MiddlewareHandler } from 'hono';
 import { logger } from 'hono/logger';
+import jsxRenderer from './renderer';
 
 export const customLogger = (message: string, ...rest: string[]) => {
   const excludeLogs = /well-known|favicon/;
@@ -10,4 +10,4 @@ export const customLogger = (message: string, ...rest: string[]) => {
   }
 };
 
-export const middlewares: MiddlewareHandler[] = [jsxRenderer, logger(customLogger)];
+export const middlewares: MiddlewareHandler[] = [logger(customLogger), jsxRenderer];
