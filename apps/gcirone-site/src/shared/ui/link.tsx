@@ -2,7 +2,7 @@ import { getAssetManifest } from '../lib/manifet';
 import type { JSX } from 'hono/jsx';
 
 export default function Link(options: JSX.IntrinsicElements['link']) {
-  const { href, rel, ...rest } = options;
+  const { href, rel, ...props } = options;
 
   if (import.meta.env.DEV && rel?.includes('preload')) {
     return <></>;
@@ -13,10 +13,10 @@ export default function Link(options: JSX.IntrinsicElements['link']) {
       const assetInManifest = getAssetManifest(href);
 
       if (assetInManifest?.file) {
-        return <link rel={rel} href={'/' + assetInManifest.file} {...rest}></link>;
+        return <link rel={rel} href={'/' + assetInManifest.file} {...props}></link>;
       }
     }
   }
 
-  return <link rel={rel} href={href} {...rest} />;
+  return <link rel={rel} href={href} {...props} />;
 }
