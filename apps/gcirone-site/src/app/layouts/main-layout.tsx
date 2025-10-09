@@ -6,7 +6,7 @@ export function MainLayout({ children }: PropsWithChildren) {
   return (
     <>
       <Nav />
-      <main className="mt-16 min-h-screen">{children}</main>
+      <main className="mt-17 min-h-screen">{children}</main>
       <Footer />
     </>
   );

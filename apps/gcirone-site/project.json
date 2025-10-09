@@ -21,7 +21,12 @@
       ],
       "options": {
         "cwd": "apps/gcirone-site",
-        "command": "vite build --mode client && vite build --mode server"
+        "parallel": false,
+        "commands": [
+          "vite build --mode client && vite build --mode server",
+          "cp -r dist/server/static/assets dist/client/static",
+          "rm -rf dist/server/static"
+        ]
       },
       "syncGenerators": ["@nx/js:typescript-sync"],
       "executor": "nx:run-commands",

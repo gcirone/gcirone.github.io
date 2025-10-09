@@ -1,6 +1,8 @@
 import NavLink from '../shared/ui/nav-link';
 import { JSX } from 'hono/jsx';
 
+import logo from '../assets/images/logo.svg';
+
 const navLinks: JSX.IntrinsicElements['a'][] = [
   { href: '/', children: 'Home', exact: true },
   { href: '/about', children: 'About' },
@@ -11,10 +13,18 @@ const navLinks: JSX.IntrinsicElements['a'][] = [
 
 export default function Nav() {
   return (
-    <nav className="fixed top-0 z-30 h-16 w-full bg-gray-200/80 py-4 backdrop-blur-sm dark:bg-gray-800/80">
-      <div className="container mx-auto flex items-center justify-between px-4">
-        <NavLink href="/" className="text-3xl leading-0 text-orange-500">
-          <i className="icon icon-logo"></i>
+    <nav className="fixed top-0 z-30 h-18 w-full bg-gray-200/80 py-4 dark:bg-gray-800">
+      <div className="container mx-auto flex h-full items-center justify-between px-4">
+        <NavLink href="/" className="flex flex-row gap-3 leading-0">
+          <img width={38} src={logo} alt="Logo" className="logo" />
+
+          <div className="relative mt-[2px] leading-0">
+            <div className="font-space text-xl">
+              <span className="text-transparent bg-clip-text bg-linear-to-b from-orange-500 to-orange-500">GIANLUCA</span>&nbsp;
+              <span className="text-transparent bg-clip-text bg-linear-to-b from-gray-300 to-gray-300">CIRONE</span>
+            </div>
+            <div className="mt-[-4px] ml-[2px] text-xs text-gray-100 tracking-wider">Technology Master</div>
+          </div>
         </NavLink>
 
         <div className="font-space hidden space-x-8 uppercase md:flex">

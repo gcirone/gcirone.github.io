@@ -5,6 +5,9 @@
   "private": true,
   "dependencies": {
     "@hono/node-server": "^1.19.5",
-    "hono": "^4.9.9"
+    "@hono/react-renderer": "^1.0.1",
+    "hono": "^4.9.10",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
   }
 }

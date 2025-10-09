@@ -1,9 +1,9 @@
-export async function ContactPage() {
+export async function LandingPage() {
   return (
     <>
       <title>Contact Page</title>
       <meta name="description" content="This is the contact page." />
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 min-h-screen">
         <h2 className="text-xl font-bold uppercase">Contact Page</h2>
 
         <p className="my-2 text-sm text-gray-300">

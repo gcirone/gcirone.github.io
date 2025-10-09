@@ -21,6 +21,7 @@ export default defineConfig(({ mode }) => {
     build: {
       outDir: './dist/client',
       reportCompressedSize: isProd,
+      assetsInlineLimit: 0,
       assetsDir: 'static',
       copyPublicDir: true,
       cssCodeSplit: true,
@@ -50,20 +51,19 @@ export default defineConfig(({ mode }) => {
       nxViteTsPaths(),
       tailwindCss(),
       devServer({
-        exclude: [...defaultOptions.exclude, /.*\.woff2/],
+        exclude: [...defaultOptions.exclude, /.*\.(jpg|svg|png|woff2)/],
         entry: './src/app/server.tsx',
         adapter: nodeAdapter
       })
     ],
-    ssr: {
-      target: 'node'
-    },
     build: {
       outDir: './dist/server',
       reportCompressedSize: isProd,
       copyPublicDir: false,
       emptyOutDir: true,
-      ssrManifest: true,
+      assetsInlineLimit: 0,
+      ssrEmitAssets: true,
+      ssrManifest: false,
       minify: isProd,
       ssr: true,
       commonjsOptions: {
@@ -75,7 +75,7 @@ export default defineConfig(({ mode }) => {
         output: {
           entryFileNames: 'main.js',
           chunkFileNames: 'chunks/[name].js',
-          assetFileNames: 'assets/[name].[ext]'
+          assetFileNames: 'static/assets/[name]-[hash].[ext]'
         }
       }
     }
